@@ -6,6 +6,7 @@ imgui.ini
 
 ## General build artifacts
 *.o
+*.so
 *.obj
 *.exe
 examples/build/*
