@@ -11,8 +11,10 @@ INCLUDE_F=$(patsubst %, -I%, $(_INLCUDE_F))
 
 OPENGL_LOADER=IMGUI_IMPL_OPENGL_LOADER_GLAD
 imgui.so: $(IMGUI_SRC)
-	$(CXX) $(IMGUI_SRC) -o $@ $(INCLUDE_F) -O3 -shared -fPIC -D$(OPENGL_LOADER)
+	$(CXX) $(IMGUI_SRC) -o $@ $(INCLUDE_F) -O3 -shared -fPIC -D$(OPENGL_LOADER) $(DBG)
+libimgui.dll: $(IMGUI_SRC)
+	$(CXX) $(IMGUI_SRC) -o $@ $(INCLUDE_F) -O3 -shared -fPIC -D$(OPENGL_LOADER) -lSDL2 -L../.. -llibglad
 
 .PHONY: clear
 clear:
-	rm -f imgui.so
+	rm -f imgui.so libimgui.dll
