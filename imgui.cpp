@@ -1478,7 +1478,14 @@ int ImFormatStringV(char* buf, size_t buf_size, const char* fmt, va_list args)
 #ifdef IMGUI_USE_STB_SPRINTF
     int w = stbsp_vsnprintf(buf, (int)buf_size, fmt, args);
 #else
+    int wasNULL = 0;
+    if (buf == NULL){
+        buf = "";
+        wasNULL = 1;
+    }
     int w = vsnprintf(buf, buf_size, fmt, args);
+    if(wasNULL)
+        buf = NULL;
 #endif
     if (buf == NULL)
         return w;
