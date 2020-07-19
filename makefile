@@ -11,14 +11,12 @@ _INLCUDE_F=../include .
 INCLUDE_F=$(patsubst %, -I%, $(_INLCUDE_F))
 
 OPENGL_LOADER=IMGUI_IMPL_OPENGL_LOADER_GLAD
-imgui.so: $(IMGUI_SRC)
-	$(CXX) $(IMGUI_SRC) -o $@ $(INCLUDE_F) -O3 -shared -fPIC -D$(OPENGL_LOADER) $(DBG)
 $(IMGUI_OBJ): $(IMGUI_SRC)
-	$(CXX) $^ -c $(INCLUDE_F) -O3 -fPIC -D$(OPENGL_LOADER) -DIMGUI_API="__declspec(dllexport)"
+	$(CXX) $^ -c $(INCLUDE_F) -O3 -fPIC -D$(OPENGL_LOADER) $(DBG) -DIMGUI_USER_CONFIG=\"myimconfig.h\" $(IMGUI_API)
 libimgui.o: $(IMGUI_OBJ)
 	ar rcs $@ $^
 	#$(LINKER) -E -r $^ -o $@
 
 .PHONY: clear
 clear:
-	rm -f imgui.so libimgui.o $(IMGUI_OBJ)
+	rm -f libimgui.o $(IMGUI_OBJ)
