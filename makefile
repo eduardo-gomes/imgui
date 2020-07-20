@@ -12,10 +12,10 @@ INCLUDE_F=$(patsubst %, -I%, $(_INLCUDE_F))
 
 OPENGL_LOADER=IMGUI_IMPL_OPENGL_LOADER_GLAD
 $(IMGUI_OBJ): $(IMGUI_SRC)
-	$(CXX) $^ -c $(INCLUDE_F) -O3 -fPIC -D$(OPENGL_LOADER) $(DBG) -DIMGUI_USER_CONFIG=\"myimconfig.h\" $(IMGUI_API)
+	$(CXX) $^ -c $(INCLUDE_F) -O3 -fPIC -D$(OPENGL_LOADER) $(DBG) -DIMGUI_USER_CONFIG=\"myimconfig.h\"
 libimgui.o: $(IMGUI_OBJ)
-	ar rcs $@ $^
-	#$(LINKER) -E -r $^ -o $@
+	#ar rcs $@ $^
+	$(LINKER) -E -r $^ -o $@
 
 .PHONY: clear
 clear:
